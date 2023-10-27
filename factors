@@ -14,7 +14,8 @@ def the_fact(fd):
 
 def find_fac(num):
     facs = []
-    for i in range(2, num // 2 + 1):
+    sq = int(num * 0.5) + 1
+    for i in range(2, sq):
         if num % i == 0:
             facs.append(i)
     return facs
