@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+import sys
+
+def factori():
+    try:
+        with open(sys.argv[1]) as file:
+            for line in file:
+                rsa = int(line.strip())
+                if rsa % 2 == 0:
+                    print("{}={}*{}".format(rsa, rsa // 2, 2))
+                    continue
+
+                small = 3
+                while small <= rsa // 2:
+                    if rsa % small == 0:
+                        break
+                    small += 2
+                
+                if small <= rsa // 2:
+                    print("{}={}*{}".format(rsa, rsa // small, small))
+                else:
+                    print("{}={}*{}".format(rsa, rsa, 1))
+    
+    except FileNotFoundError:
+        print("File not found.")
+    except ValueError:
+        print("Invalid file format.")
+
+factori()
