@@ -1,34 +1,29 @@
 #!/usr/bin/python3
-"""Modules."""
 import sys
 
-def the_fact(fd):
+def factori():
     try:
-        with open(fd) as file:
-            for i in file:
-                num = int(i.strip())
-                fac = find_fac(num)
-                printfa(num, fac)
+        with open(sys.argv[1]) as file:
+            for line in file:
+                rsa = int(line.strip())
+                if rsa % 2 == 0:
+                    print("{}={}*{}".format(rsa, rsa // 2, 2))
+                    continue
+
+                small = 3
+                while small <= rsa // 2:
+                    if rsa % small == 0:
+                        break
+                    small += 2
+                
+                if small <= rsa // 2:
+                    print("{}={}*{}".format(rsa, rsa // small, small))
+                else:
+                    print("{}={}*{}".format(rsa, rsa, 1))
+    
     except FileNotFoundError:
-        print("Not found file")
+        print("File not found.")
+    except ValueError:
+        print("Invalid file format.")
 
-def find_fac(num):
-    facs = []
-    sq = int(num * 0.5) + 1
-    for i in range(2, sq):
-        if num % i == 0:
-            facs.append(i)
-    return facs
-
-def printfa(num, fac):
-    if len(fac) == 0:
-        print(f"{num}={num}*{1}")
-    else:
-        qu = num // fac[0]
-        print(f"{num}={qu}*{fac[0]}")
-
-if len(sys.argv) != 2:
-    print("please enter the file name")
-else:
-    fd = sys.argv[1]
-    the_fact(fd)
+factori()
